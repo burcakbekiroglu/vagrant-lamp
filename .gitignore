@@ -1,0 +1,16 @@
+*~
+.DS_Store
+.svn
+.cvs
+*.bak
+*.swp
+Thumbs.db
+
+# custom
+.idea
+.vagrant
+.bundle
+
+# puphpet
+puphpet/config.yaml
+puphpet/files/dot/ssh/*
