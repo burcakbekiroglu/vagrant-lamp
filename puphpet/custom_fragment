@@ -1,0 +1,3 @@
+ServerAlias *.public.development.dev
+UseCanonicalName Off
+VirtualDocumentRoot /var/www/%-4/public
