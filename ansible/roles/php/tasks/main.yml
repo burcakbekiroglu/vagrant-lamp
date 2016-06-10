@@ -1,0 +1,10 @@
+---
+# file: roles/php/tasks/main.yml
+
+- name: update php config to include mailhog
+  lineinfile:
+    dest: "/etc/php.ini"
+    regexp: "^sendmail_path = /usr/sbin/sendmail -t -i"
+    line: "sendmail_path = /usr/sbin/ssmtp -t"
+    state: present
+  notify: restart apache

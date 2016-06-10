@@ -1,0 +1,9 @@
+---
+# file: dbservers.yml
+
+- hosts: all
+  become: yes
+  vars_files:
+    - vars/main.yml
+  roles:
+    - geerlingguy.mysql

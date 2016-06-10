@@ -1,13 +1,13 @@
 # Vagrant Generic VM #
 
-This is a generic 'catch-all' virtual machine to be used on test scripts, small projects or projects that do not yet have a dedicated virtual machine config. 
+This is a generic 'catch-all' virtual machine provised with Ansible to be used on test scripts, small projects or projects that do not yet have a dedicated virtual machine config. 
 
 ### How do I get set up? ###
 
 * Check out the repository into project folder or location of your choice
-* Copy and paste config-sample.yaml, rename to config.yaml and update as required.
-* At a minimum, please check line 35 (synced folder path) and line 103 (vhosts)
-* Run `vagrant up` from the project root foler
+* Copy and paste `Vagrantfile-sample`, rename to `Vagrantfile` and update settings as required, such as IP address and memory. 
+* Copy and paste `ansible/local/group_vars/all-sample.yml`, rename to `all.yml` and update settings as required, such as Apache virtualhosts.
+* Run `vagrant up` from the project root folder.
 
 ### Usage ###
 
@@ -19,15 +19,39 @@ If you have a project located in:
 
 `/Users/<username>/Projects/mywebsite/public`
 
-The web address for that website will be:
+The web address and host entry should be:
 
 `http://mywebsite.public.development.dev`
 
-This assumes that your configured synced folder is:
+This assumes that your configured Vagrantfile synced folder is:
 
 `/Users/<username>/Projects`
 
 All website files that you want accessible must be located in `public` subfolder. 
+
+### Notes ###
+
+If you change the virtual machine IP address, make sure to also update the inventory IP address within `ansible/local/inventory`
+
+### MailHog ###
+
+The virtual machine is bundled with MailHog. This tool automatically catches outbound email and makes it accessible via a web interface:
+
+`http://mywebsite.public.development.dev:8025`
+
+or 
+
+`http://192.168.56.100:8025`
+
+### Ansible Galaxy ###
+
+If you want to add a new Ansible galaxy module, you can add it to:
+
+`ansible/requirements.yml` 
+
+and to install it, run: 
+
+`ansible-galaxy install -r ansible/requirements.yml`
 
 ### Automatic DNS ###
 
