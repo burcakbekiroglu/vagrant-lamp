@@ -1,0 +1,43 @@
+---
+# file: production/group_vars/webservers
+
+# apache
+apache_user: vagrant
+
+apache_vhosts:
+  - servername: "public.development.dev"
+    serveralias: "*.public.development.dev"
+    documentroot: "/var/www"
+    projectroot: "/var/www"
+    extra_parameters: |
+      UseCanonicalName Off
+      VirtualDocumentRoot /var/www/%-4/public
+
+      <FilesMatch "\.php$">
+        Require all granted
+        SetHandler proxy:fcgi://127.0.0.1:9000
+      </FilesMatch>
+
+  - servername: "example.dev"
+    serveralias: "www.example.com"
+    documentroot: "/var/www/example/public"
+    projectroot: "/var/www/example"
+    extra_parameters: |
+      UseCanonicalName Off
+
+      <FilesMatch "\.php$">
+        Require all granted
+        SetHandler proxy:fcgi://127.0.0.1:9000
+      </FilesMatch>
+
+# mysql
+mysql_root_password: vagrant
+mysql_databases:
+  - name: vagrant
+mysql_users:
+  - name: vagrant
+    host: "%"
+    password: vagrant
+    priv: "vagrant.*:ALL"
+
+# mysql_root_password_update: yes

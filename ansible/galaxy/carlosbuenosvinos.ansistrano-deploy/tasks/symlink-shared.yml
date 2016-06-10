@@ -1,0 +1,31 @@
+---
+# Ensure symlinks target paths is absent
+- name: ANSISTRANO | Ensure shared paths targets are absent
+  file:
+    state: absent
+    path: "{{ ansistrano_release_path.stdout }}/{{ item }}"
+  with_items: "{{ ansistrano_shared_paths }}"
+
+# Symlinks shared paths
+- name: ANSISTRANO | Create softlinks for shared paths
+  file:
+    state: link
+    path: "{{ ansistrano_release_path.stdout }}/{{ item }}"
+    src: "{{ item | regex_replace('[^\\/]*', '..') }}/../shared/{{ item }}"
+  with_items: "{{ ansistrano_shared_paths }}"
+
+# Remove previous .rsync-filter file (rsync current deployment)
+- name: ANSISTRANO | Ensure .rsync-filter is absent
+  file:
+    state: absent
+    path: "{{ ansistrano_release_path.stdout }}/.rsync-filter"
+  when: ansistrano_current_via == "rsync"
+
+# Setup .rsync-filter file for current rsync deployment (exclude shared folders for rsync current deployment)
+- name: ANSISTRANO | Setup .rsync-filter with shared-folders
+  lineinfile:
+    dest: "{{ ansistrano_release_path.stdout }}/.rsync-filter"
+    line: "- /{{ item }}"
+    create: yes
+  with_items: "{{ ansistrano_shared_paths }}"
+  when: ansistrano_current_via == "rsync"

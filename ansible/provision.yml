@@ -1,0 +1,10 @@
+---
+# file: provision.yml
+
+- hosts: all
+  become: yes
+  roles:
+    - common
+
+- include: webservers.yml
+- include: dbservers.yml
