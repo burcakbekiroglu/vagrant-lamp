@@ -11,5 +11,7 @@ Thumbs.db
 .vagrant
 .bundle
 
-# puphpet
-puphpet/config.yaml
+# ansible
+*.retry
+Vagrantfile
+ansible/local/group_vars/all.yml
