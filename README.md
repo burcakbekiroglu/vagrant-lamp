@@ -4,7 +4,7 @@ This is a generic 'catch-all' virtual machine provised with Ansible to be used o
 
 ### Getting set up on Mac OSX ###
 
-* Check out the repository into project folder or location of your choice
+* Check out the vagrant repository into a location of your choice
 * Copy and paste `Vagrantfile-sample`, rename to `Vagrantfile` and update settings as required, such as IP address and memory. 
 * Copy and paste `ansible/local/group_vars/all-sample.yml`, rename to `all.yml` and update settings as required, such as Apache virtualhosts.
 * Copy and paste `ansible/local/inventory-sample.yml`, rename to `inventory` and update the IP address as required.
@@ -14,10 +14,9 @@ This is a generic 'catch-all' virtual machine provised with Ansible to be used o
 
 Ansible provisioning doesn't work on Windows and will have to use a pre-provisioned VM.
 
-* Check out the repository into project folder or location of your choice
-* Copy and paste `Vagrantfile-sample`, rename to `Vagrantfile` and update settings as required, such as IP address and memory.
-* Copy and paste `ansible/local/group_vars/all-sample.yml`, rename to `all.yml` and update settings as required, such as Apache virtualhosts.
-* Copy and paste `ansible/local/inventory-sample.yml`, rename to `inventory` and update the IP address as required.
+* Check out the vagrant repository into a location of your choice
+* Download a pre-packaged copy of the VM from `\\oak\Company\Vagrant\vagrant-generic-vm@0.7.0` and place the project root folder.
+* Copy and paste `Vagrantfile-packaged`, rename to `Vagrantfile` and update settings as required, such as IP address and memory.
 * Run `vagrant up` from the project root folder.
 
 ### Usage ###
