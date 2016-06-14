@@ -1,0 +1,44 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+ENV['ANSIBLE_CONFIG'] = "./ansible.cfg"
+
+Vagrant.configure(2) do |config|
+
+	#
+	# Centos
+	#
+	config.vm.box = "vagrant-generic-vm.box"
+
+	#
+	# Network
+	#
+	config.vm.network "private_network", ip: "192.168.56.100"
+
+	#
+	# Synced folder
+	#
+	# config.vm.synced_folder "~/Development/Websites", "/var/www", type: "nfs"
+	config.vm.synced_folder "~/Development/Websites", "/var/www", mount_options: ["dmode=777,fmode=777"]
+	config.vm.synced_folder ".", "/home/vagrant/sync", :disabled => true
+
+	#
+	# Virtual machine config
+	#
+	config.vm.define "generic" do |generic|
+    	generic.vm.hostname = "genericvm.dev"
+    end
+
+	#
+	# VirtualBox config
+	#
+	config.vm.provider "virtualbox" do |virtualbox|
+    	virtualbox.memory = 1024
+    end
+
+	#
+	# Additional scripts
+	#
+	config.vm.provision :shell, run: "always", path: "ansible/scripts/services.sh"
+
+end
