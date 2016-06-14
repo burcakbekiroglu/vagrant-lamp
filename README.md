@@ -7,6 +7,7 @@ This is a generic 'catch-all' virtual machine provised with Ansible to be used o
 * Check out the repository into project folder or location of your choice
 * Copy and paste `Vagrantfile-sample`, rename to `Vagrantfile` and update settings as required, such as IP address and memory. 
 * Copy and paste `ansible/local/group_vars/all-sample.yml`, rename to `all.yml` and update settings as required, such as Apache virtualhosts.
+* Copy and paste `ansible/local/inventory-sample.yml`, rename to `inventory` and update the IP address as required.
 * Run `vagrant up` from the project root folder.
 
 ### Usage ###
