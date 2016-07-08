@@ -5,7 +5,8 @@
   selinux: policy=targeted state=permissive
 
 - name: create vhost directories
-  file: path={{ item.projectroot }} state=directory owner={{ apache_user }} group={{ apache_user }}
+  # file: path={{ item.projectroot }} state=directory owner={{ apache_user }} group={{ apache_user }}
+  file: path={{ item.projectroot }} state=directory
   with_items: "{{ apache_vhosts }}"
   when: apache_create_vhosts
 
