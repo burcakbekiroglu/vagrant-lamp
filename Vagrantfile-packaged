@@ -3,6 +3,8 @@
 
 ENV['ANSIBLE_CONFIG'] = "./ansible.cfg"
 
+vagrant_network_ip = "192.168.56.100"
+
 Vagrant.configure(2) do |config|
 
 	#
@@ -13,20 +15,24 @@ Vagrant.configure(2) do |config|
 	#
 	# Network
 	#
-	config.vm.network "private_network", ip: "192.168.56.100"
+	config.vm.network "private_network", ip: "#{vagrant_network_ip}"
 
 	#
 	# Synced folder
 	#
 	# config.vm.synced_folder "~/Development/Websites", "/var/www", type: "nfs"
 	config.vm.synced_folder "~/Development/Websites", "/var/www", mount_options: ["dmode=777,fmode=777"]
+
+	#
+	# Remove default options
+	#
 	config.vm.synced_folder ".", "/home/vagrant/sync", :disabled => true
 
 	#
 	# Virtual machine config
 	#
 	config.vm.define "generic" do |generic|
-    	generic.vm.hostname = "genericvm.dev"
+    	generic.vm.hostname = "genericvm.local"
     end
 
 	#
@@ -34,6 +40,7 @@ Vagrant.configure(2) do |config|
 	#
 	config.vm.provider "virtualbox" do |virtualbox|
     	virtualbox.memory = 1024
+    	virtualbox.customize ["modifyvm", :id, "--natdnshostresolver1", "off"]
     end
 
 	#

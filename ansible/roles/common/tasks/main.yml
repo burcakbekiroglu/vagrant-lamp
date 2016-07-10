@@ -30,3 +30,18 @@
 - name: ensure ntp is running and enabled
   service: name=ntpd state=running enabled=yes
   tags: ntp
+
+- name: disable GSSAPIAuthentication for ssh login
+  lineinfile:
+    dest: "/etc/ssh/sshd_config"
+    regexp: "^GSSAPIAuthentication"
+    line: "GSSAPIAuthentication no"
+    state: present
+  notify: restart sshd
+
+- name: disable UseDNS for ssh login
+  lineinfile:
+    dest: "/etc/ssh/sshd_config"
+    line: "UseDNS no"
+    state: present
+  notify: restart sshd

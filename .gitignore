@@ -15,4 +15,5 @@ Thumbs.db
 *.retry
 Vagrantfile
 ansible/local/group_vars/all.yml
+ansible/local/inventory
 *.box
