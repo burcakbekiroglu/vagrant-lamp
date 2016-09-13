@@ -5,7 +5,7 @@ This is a generic 'catch-all' virtual machine provised with Ansible to be used o
 ### Getting set up on Mac OSX ###
 
 * Check out the vagrant repository into a location of your choice
-* Copy and paste `Vagrantfile-sample`, rename to `Vagrantfile` and update settings as required, such as IP address and memory. 
+* Copy and paste `Vagrantfile-sample`, rename to `Vagrantfile` and update settings as required such as shared folder, IP address and memory. 
 * Copy and paste `ansible/local/group_vars/all-sample.yml`, rename to `all.yml` and update settings as required, such as Apache virtualhosts.
 * Run `vagrant up` from the project root folder.
 
