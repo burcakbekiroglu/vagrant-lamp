@@ -8,6 +8,19 @@ apache_sendfile_option: "off"
 
 # Apache vhosts
 apache_vhosts:
+  - servername: "public.development.dev"
+    serveralias: "*.public.development.dev"
+    documentroot: "/var/www"
+    projectroot: "/var/www"
+    extra_parameters: |
+      UseCanonicalName Off
+      VirtualDocumentRoot /var/www/%-4/public
+
+      <FilesMatch "\.php$">
+        Require all granted
+        SetHandler proxy:fcgi://127.0.0.1:9000
+      </FilesMatch>
+
   - servername: "local.dev"
     serveralias: "*.local.dev"
     documentroot: "/var/www"
@@ -22,7 +35,7 @@ apache_vhosts:
       </FilesMatch>
 
   - servername: "localhost"
-    serveralias: "*.dev *"
+    serveralias: "*"
     documentroot: "/var/www/html/public"
     projectroot: "/var/www/html"
     extra_parameters: |
@@ -33,6 +46,21 @@ apache_vhosts:
 
 # Apache SSL vhosts
 apache_vhosts_ssl:
+  - servername: "public.development.dev"
+    serveralias: "*.public.development.dev"
+    documentroot: "/var/www"
+    projectroot: "/var/www"
+    certificate_file: "/etc/pki/tls/certs/localhost.crt"
+    certificate_key_file: "/etc/pki/tls/private/localhost.key"
+    extra_parameters: |
+      UseCanonicalName Off
+      VirtualDocumentRoot /var/www/%-4/public
+
+      <FilesMatch "\.php$">
+        Require all granted
+        SetHandler proxy:fcgi://127.0.0.1:9000
+      </FilesMatch>
+
   - servername: "local.dev"
     serveralias: "*.local.dev"
     documentroot: "/var/www"
@@ -49,7 +77,7 @@ apache_vhosts_ssl:
       </FilesMatch>
 
   - servername: "localhost"
-    serveralias: "*.dev *"
+    serveralias: "*"
     documentroot: "/var/www/html/public"
     projectroot: "/var/www/html"
     certificate_file: "/etc/pki/tls/certs/localhost.crt"
@@ -61,13 +89,13 @@ apache_vhosts_ssl:
       </FilesMatch>
 
 # MySQL options
-mysql_root_password: ndG9H4JumFtBaaWx
+mysql_root_password: vagrant
 mysql_databases:
   - name: vagrant
 mysql_users:
   - name: vagrant
     host: "%"
-    password: sWYwWqPjigmzxKeX
+    password: vagrant
     priv: "vagrant.*:ALL"
 
 # mysql_root_password_update: yes
