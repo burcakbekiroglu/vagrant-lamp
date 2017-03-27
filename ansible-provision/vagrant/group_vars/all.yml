@@ -1,0 +1,73 @@
+---
+# Environment specific config
+
+# Environment options
+install_mailhog: true
+apache_vhost_permissions: false
+apache_sendfile_option: "off"
+
+# Apache vhosts
+apache_vhosts:
+  - servername: "local.dev"
+    serveralias: "*.local.dev"
+    documentroot: "/var/www"
+    projectroot: "/var/www"
+    extra_parameters: |
+      UseCanonicalName Off
+      VirtualDocumentRoot /var/www/%-3/public
+
+      <FilesMatch "\.php$">
+        Require all granted
+        SetHandler proxy:fcgi://127.0.0.1:9000
+      </FilesMatch>
+
+  - servername: "localhost"
+    serveralias: "*.dev *"
+    documentroot: "/var/www/html/public"
+    projectroot: "/var/www/html"
+    extra_parameters: |
+      <FilesMatch "\.php$">
+        Require all granted
+        SetHandler proxy:fcgi://127.0.0.1:9000
+      </FilesMatch>
+
+# Apache SSL vhosts
+apache_vhosts_ssl:
+  - servername: "local.dev"
+    serveralias: "*.local.dev"
+    documentroot: "/var/www"
+    projectroot: "/var/www"
+    certificate_file: "/etc/pki/tls/certs/localhost.crt"
+    certificate_key_file: "/etc/pki/tls/private/localhost.key"
+    extra_parameters: |
+      UseCanonicalName Off
+      VirtualDocumentRoot /var/www/%-3/public
+
+      <FilesMatch "\.php$">
+        Require all granted
+        SetHandler proxy:fcgi://127.0.0.1:9000
+      </FilesMatch>
+
+  - servername: "localhost"
+    serveralias: "*.dev *"
+    documentroot: "/var/www/html/public"
+    projectroot: "/var/www/html"
+    certificate_file: "/etc/pki/tls/certs/localhost.crt"
+    certificate_key_file: "/etc/pki/tls/private/localhost.key"
+    extra_parameters: |
+      <FilesMatch "\.php$">
+        Require all granted
+        SetHandler proxy:fcgi://127.0.0.1:9000
+      </FilesMatch>
+
+# MySQL options
+mysql_root_password: ndG9H4JumFtBaaWx
+mysql_databases:
+  - name: vagrant
+mysql_users:
+  - name: vagrant
+    host: "%"
+    password: sWYwWqPjigmzxKeX
+    priv: "vagrant.*:ALL"
+
+# mysql_root_password_update: yes

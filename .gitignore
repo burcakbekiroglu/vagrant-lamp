@@ -10,6 +10,7 @@ Thumbs.db
 .idea
 .vagrant
 .bundle
+node_modules
 
 # ansible
 *.retry
