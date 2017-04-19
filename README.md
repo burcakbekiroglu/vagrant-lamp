@@ -1,10 +1,11 @@
 # Vagrant LAMP #
 
-This is a catch-all LAMP stack provised with Ansible to be used on test scripts, small projects or projects that do require their own virtual machine.
+This is a catch-all LAMP stack provisioned with Ansible to be used on test scripts, small projects or projects that do require their own virtual machine.
 
 ### Getting set up ###
 
 * Check out the vagrant repository into a location of your choice
+* Run `npm install` to install Ansible [dependencies](https://github.com/scottjs/ansible-provision)
 * Copy and paste `Vagrantfile-sample`, rename to `Vagrantfile`
 * Update settings as required such as IP address and memory
 * Uncomment one of the shared folder options (either NFS or normal) and update the path to your projects. 
