@@ -1,0 +1,7 @@
+---
+- hosts: all
+  become: yes
+
+- include: plays/common.yml
+- include: plays/webservers.yml
+- include: plays/dbservers.yml
