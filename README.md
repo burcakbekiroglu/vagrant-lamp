@@ -1,18 +1,24 @@
-# Vagrant Generic VM #
+# Vagrant LAMP #
 
-This is a generic 'catch-all' virtual machine provised with Ansible to be used on test scripts, small projects or projects that do not yet have a dedicated virtual machine config. 
+This is a catch-all LAMP stack provised with Ansible to be used on test scripts, small projects or projects that do require their own virtual machine.
 
 ### Getting set up ###
 
 * Check out the vagrant repository into a location of your choice
 * Copy and paste `Vagrantfile-sample`, rename to `Vagrantfile`
-* Update settings as required such as IP address and memory.
+* Update settings as required such as IP address and memory
 * Uncomment one of the shared folder options (either NFS or normal) and update the path to your projects. 
 	* Choose NFS mode for more speed but less compatibility
-	* Choose normal mode for less speed but more reliability
+	* Choose normal mode for less speed but more compatibility
 * Run `vagrant up` from the project root folder.
 
-### Windows notes ###
+### Problems
+
+If you have problems on your first `vagrant up` try running `vagrant reload` without any shared folders configured, let the machine fully provision then re-add the shared folder settings and restart. 
+
+Make sure you have the [guest additions plugin](https://github.com/dotless-de/vagrant-vbguest) installed. 
+
+### Windows ###
 
 For windows, set the shared path syntax looks like this:
 
@@ -20,11 +26,13 @@ For windows, set the shared path syntax looks like this:
 
 Change to match your environment.
 
+Note: the Ansible provisioner doesn't work on Windows but you can use a [pre-built base box](https://atlas.hashicorp.com/scottjs/boxes/centos7-apache-mariadb-php) instead. 
+
 ### Usage ###
 
 Make sure you have a host entry set up for the IP you have configured.
 
-The virtual machine uses a 'catch-all' virtual host mechanism. 
+The virtual machine uses a catch-all virtual host mechanism. 
 
 If you have a project located in:
 
@@ -66,14 +74,8 @@ Note: Laravel projects may not work properly in NFS mode.
 
 The virtual machine is bundled with MailHog. This tool automatically catches outbound email and makes it accessible via a web interface:
 
-`http://mywebsite.public.development.dev:8025`
+`http://mywebsite.local.dev:8025`
 
 or 
 
-`http://192.168.56.100:8025`
-
-### Automatic DNS ###
-
-For Mac OS X users, you can avoid having to update host entries by using a program called Dnsmasq, which can be set up to automatically map *.development.dev to the IP address of your machine.
-
-For information here [here](https://passingcuriosity.com/2013/dnsmasq-dev-osx).
+`http://10.0.0.10:8025`
