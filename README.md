@@ -2,25 +2,27 @@
 
 This is a generic 'catch-all' virtual machine provised with Ansible to be used on test scripts, small projects or projects that do not yet have a dedicated virtual machine config. 
 
-### Getting set up on Mac OSX ###
+### Getting set up ###
 
 * Check out the vagrant repository into a location of your choice
-* Copy and paste `Vagrantfile-sample`, rename to `Vagrantfile` and update settings as required such as shared folder, IP address and memory. 
-* Copy and paste `ansible/local/group_vars/all-sample.yml`, rename to `all.yml` and update settings as required, such as Apache virtualhosts.
+* Copy and paste `Vagrantfile-sample`, rename to `Vagrantfile`
+* Update settings as required such as IP address and memory.
+* Uncomment one of the shared folder options (either NFS or normal) and update the path to your projects. 
+	* Choose NFS mode for more speed but less compatibility
+	* Choose normal mode for less speed but more reliability
 * Run `vagrant up` from the project root folder.
 
-### Getting set up on Windows ###
+### Windows notes ###
 
-Ansible provisioning doesn't work on Windows and will have to use a pre-provisioned VM.
+For windows, set the shared path syntax looks like this:
 
-* Check out the vagrant repository into a location of your choice
-* Download a pre-packaged copy of the VM from `\\oak\Company\Vagrant\vagrant-generic-vm@0.7.0` and place the project root folder.
-* Copy and paste `Vagrantfile-packaged`, rename to `Vagrantfile` and update settings as required, such as IP address and memory.
-* Run `vagrant up` from the project root folder.
+`C:/Users/myusername/Development/Websites`
+
+Change to match your environment.
 
 ### Usage ###
 
-Make sure you have a host entry set up for `192.168.56.100`, or the IP address you have configured for the machine. 
+Make sure you have a host entry set up for the IP you have configured.
 
 The virtual machine uses a 'catch-all' virtual host mechanism. 
 
@@ -28,9 +30,11 @@ If you have a project located in:
 
 `/Users/<username>/Projects/mywebsite/public`
 
-The web address and host entry should be:
+The web address will be either:
 
 `http://mywebsite.public.development.dev`
+
+`http://mywebsite.local.dev`
 
 This assumes that your configured Vagrantfile synced folder is:
 
@@ -42,7 +46,7 @@ All website files that you want accessible must be located in `public` subfolder
 
 MariaDB is installed with a default database set up if you want to run your database within the VM. The username, password and default database is `vagrant`. You should be able to connect to it directly from your host. 
 
-Note: destroying a VM with a database inside will also delete your database, make sure to back it up regularly.
+Note: destroying a VM with a database inside will also delete your database, make sure to back it.
 
 ### External MySQL ###
 
@@ -68,20 +72,8 @@ or
 
 `http://192.168.56.100:8025`
 
-### Ansible Galaxy ###
-
-If you want to add a new Ansible galaxy module, you can add it to:
-
-`ansible/requirements.yml` 
-
-and to install it, run: 
-
-`ansible-galaxy install -r ansible/requirements.yml`
-
 ### Automatic DNS ###
 
 For Mac OS X users, you can avoid having to update host entries by using a program called Dnsmasq, which can be set up to automatically map *.development.dev to the IP address of your machine.
 
-For information here:
-
-https://passingcuriosity.com/2013/dnsmasq-dev-osx/
+For information here [here](https://passingcuriosity.com/2013/dnsmasq-dev-osx).
